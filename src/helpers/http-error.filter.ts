@@ -3,6 +3,7 @@ import {
   ExceptionFilter,
   HttpException,
   ArgumentsHost,
+  HttpStatus,
 } from '@nestjs/common';
 import { isFunction, isNil, isObject } from 'lodash';
 
@@ -14,7 +15,7 @@ export class HttpErrorFilter implements ExceptionFilter {
     const response = ctx.getResponse();
     const statusCode = isFunction(exception.getStatus)
       ? exception.getStatus()
-      : 500;
+      : HttpStatus.INTERNAL_SERVER_ERROR;
 
     const errors: any = exception;
     const validationErrors = errors.response || {};

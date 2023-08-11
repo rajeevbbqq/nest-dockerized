@@ -8,6 +8,7 @@ import { AppService } from './app.service';
 import { PostEntity } from './entities/post.entity';
 import { HttpErrorFilter } from './helpers/http-error.filter';
 import { PostModule } from './modules/post/post.module';
+import { AuthModule } from './modules/auth/auth.module';
 
 @Module({
   imports: [
@@ -24,6 +25,7 @@ import { PostModule } from './modules/post/post.module';
       logging: true,
     }),
     PostModule,
+    AuthModule,
   ],
   controllers: [AppController],
   providers: [
