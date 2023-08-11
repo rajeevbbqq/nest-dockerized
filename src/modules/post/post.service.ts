@@ -42,6 +42,31 @@ export class PostService {
     }
   }
 
+  async updatePost(postId: number, inputs: CreatePostDTO) {
+    try {
+      const post = await this.postRepo.exist({ where: { id: postId } });
+
+      if (post) {
+        await this.postRepo.update(
+          { id: postId },
+          {
+            status: inputs.isPublished,
+            description: inputs.description,
+            title: inputs.title,
+          },
+        );
+        return { message: 'Post updated', status: HttpStatus.OK };
+      } else {
+        return {
+          message: 'Invalid Post Id',
+          status: HttpStatus.NOT_FOUND,
+        };
+      }
+    } catch (error) {
+      return { message: error.toString(), status: HttpStatus.BAD_REQUEST };
+    }
+  }
+
   findAll(): Promise<PostEntity[]> {
     return this.postRepo.find();
   }

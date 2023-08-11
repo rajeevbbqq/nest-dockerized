@@ -1,9 +1,11 @@
 import {
   Body,
   Controller,
+  Delete,
   Get,
   Param,
   Post,
+  Put,
   Res,
   UseGuards,
 } from '@nestjs/common';
@@ -44,6 +46,20 @@ export class PostController {
   async findPost(@Param('id') id: number, @Res() res: Response) {
     const { status, data, message } = await this.postService.findOne(id);
     return res.status(status).json({ message, data });
+  }
+
+  @Put('/:id')
+  @ApiOkResponse({ description: 'Post updated' })
+  @ApiUnprocessableEntityResponse({ description: 'Invalid inputs' })
+  @ApiNotFoundResponse({ description: 'Invalid Post Id' })
+  @ApiUnauthorizedResponse({ description: 'Check Authroization bearer token' })
+  async updatePost(
+    @Param('id') id: number,
+    @Res() res: Response,
+    @Body() inputs: CreatePostDTO,
+  ) {
+    const { status, message } = await this.postService.updatePost(id, inputs);
+    return res.status(status).json({ message });
   }
 
   @Get()
