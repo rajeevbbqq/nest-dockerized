@@ -62,6 +62,15 @@ export class PostController {
     return res.status(status).json({ message });
   }
 
+  @Delete('/:id')
+  @ApiOkResponse({ description: 'Post updated' })
+  @ApiNotFoundResponse({ description: 'Invalid Post Id' })
+  @ApiUnauthorizedResponse({ description: 'Check Authroization bearer token' })
+  async deletePost(@Param('id') id: number, @Res() res: Response) {
+    const { status, message } = await this.postService.deletePost(id);
+    return res.status(status).json({ message });
+  }
+
   @Get()
   findAllPosts() {
     return this.postService.findAll();
