@@ -1,0 +1,40 @@
+version: '3.9'
+services:
+  db:
+    container_name: db
+    restart: always
+    image: postgres:14
+    hostname: postgres
+    environment:
+      POSTGRES_USER: mars_dev_user
+      POSTGRES_PASSWORD: password
+      POSTGRES_DB: mars_db
+    ports:
+      - '5432:5432'
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    healthcheck:
+      test: "exit 0"
+      interval: 1m30s
+      timeout: 30s
+      retries: 5
+      start_period: 30s
+  mars_app:
+    container_name: mars_app
+    depends_on:
+      - db
+    build: .
+    ports:
+      - '3000:3000'
+    restart: always
+    environment:
+      - DB_TYPE=postgres
+      - PG_USER=mars_dev_user
+      - PG_PASSWORD=password
+      - PG_DB=mars_db
+      - PG_PORT=5432
+      - PG_HOST=postgres
+    networks:
+      - default
+volumes:
+  pgdata: {}
