@@ -19,7 +19,24 @@ export class PostService {
         status: inputs.isPublished,
       });
 
-      return { message: 'Post created', data, status: HttpStatus.OK };
+      return { message: 'Post created', data, status: HttpStatus.CREATED };
+    } catch (error) {
+      return { message: error.toString(), status: HttpStatus.BAD_REQUEST };
+    }
+  }
+
+  async findOne(postId: number) {
+    try {
+      const post = await this.postRepo.findOne({ where: { id: postId } });
+
+      if (post) {
+        return { message: 'Post fetched', data: post, status: HttpStatus.OK };
+      } else {
+        return {
+          message: 'Invalid Post Id',
+          status: HttpStatus.NOT_FOUND,
+        };
+      }
     } catch (error) {
       return { message: error.toString(), status: HttpStatus.BAD_REQUEST };
     }
