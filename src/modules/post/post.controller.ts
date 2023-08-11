@@ -9,19 +9,21 @@ import {
   Res,
   UseGuards,
 } from '@nestjs/common';
+import {
+  ApiBearerAuth,
+  ApiCreatedResponse,
+  ApiNotFoundResponse,
+  ApiOkResponse,
+  ApiQuery,
+  ApiTags,
+  ApiUnauthorizedResponse,
+  ApiUnprocessableEntityResponse,
+} from '@nestjs/swagger';
 import { Response } from 'express';
+import { Paginate, PaginateQuery } from 'nestjs-paginate';
 import { BearerGuard } from '../auth/bearer.guard';
 import { CreatePostDTO } from './dtos/create-post.dto';
 import { PostService } from './post.service';
-import {
-  ApiBearerAuth,
-  ApiOkResponse,
-  ApiUnauthorizedResponse,
-  ApiUnprocessableEntityResponse,
-  ApiTags,
-  ApiCreatedResponse,
-  ApiNotFoundResponse,
-} from '@nestjs/swagger';
 
 @UseGuards(BearerGuard)
 @ApiBearerAuth()
@@ -63,7 +65,7 @@ export class PostController {
   }
 
   @Delete('/:id')
-  @ApiOkResponse({ description: 'Post updated' })
+  @ApiOkResponse({ description: 'Post deleted' })
   @ApiNotFoundResponse({ description: 'Invalid Post Id' })
   @ApiUnauthorizedResponse({ description: 'Check Authroization bearer token' })
   async deletePost(@Param('id') id: number, @Res() res: Response) {
@@ -72,7 +74,14 @@ export class PostController {
   }
 
   @Get()
-  findAllPosts() {
-    return this.postService.findAll();
+  @ApiQuery({ name: 'filter.title' })
+  @ApiQuery({ name: 'page' })
+  @ApiQuery({ name: 'limit' })
+  @ApiOkResponse({ description: 'Posts found' })
+  @ApiUnauthorizedResponse({ description: 'Check Authroization bearer token' })
+  @ApiQuery({ name: 'sortBy', enum: ['id:DESC', 'id:ASC'] })
+  async findAllPosts(@Paginate() query: PaginateQuery, @Res() res: Response) {
+    const { status, message, data } = await this.postService.findAll(query);
+    return res.status(status).json({ message, data });
   }
 }
