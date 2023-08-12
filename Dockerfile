@@ -13,6 +13,9 @@ RUN npm install
 # Bundle app source
 COPY . .
 
+
+# Setting node env as production
+ENV NODE_ENV production
 # Creates a "dist" folder with the production build
 RUN npm run build
 
