@@ -15,7 +15,9 @@ Project is scaffolded with below tools
 |   | Link  |   
 |---|---|
 | Documentation  | [Access documentation](http://ec2-3-111-218-226.ap-south-1.compute.amazonaws.com/documentation)  |
-| Application Server  | [Access](ec2-3-111-218-226.ap-south-1.compute.amazonaws.com)  |
+| Application Server  | [Access](http://ec2-3-111-218-226.ap-south-1.compute.amazonaws.com)  |
+
+Note: When invoking API make sure to pass JWT token mentioned in the Swagger doc
 
 ## Deploying Project locally with Docker
 
