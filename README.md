@@ -50,6 +50,7 @@ npm run test:e2e
 # development with watch mode
 $ npm run start:dev
 ```
+![Test results](https://raw.githubusercontent.com/rajeevbbqq/nest-dockerized/development/test/test_results.png)
 
 ## Generating DB scripts
 
