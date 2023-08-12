@@ -1,12 +1,7 @@
 import { HttpStatus, Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import {
-  FilterOperator,
-  FilterSuffix,
-  PaginateQuery,
-  paginate,
-} from 'nestjs-paginate';
-import { PostEntity } from 'src/entities/post.entity';
+import { PaginateQuery, paginate } from 'nestjs-paginate';
+import { PostEntity } from '../../entities/post.entity';
 import { Repository } from 'typeorm';
 import { CreatePostDTO } from './dtos/create-post.dto';
 
