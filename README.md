@@ -17,7 +17,7 @@ Project is scaffolded with below tools
 | Documentation  | [Access documentation](http://ec2-3-111-218-226.ap-south-1.compute.amazonaws.com/documentation)  |
 | Application Server  | [Access](http://ec2-3-111-218-226.ap-south-1.compute.amazonaws.com)  |
 
-Note: When invoking API make sure to pass JWT token mentioned in the Swagger doc
+Note: When invoking API make sure to authorize with JWT token mentioned in the Swagger doc and fill all the required fields mentioned.
 
 ## Deploying Project locally with Docker
 
@@ -44,13 +44,13 @@ Project starts on [http://localhost:3000](http://localhost:3000)
 npm run test:e2e
 ```
 
+![Test results](https://raw.githubusercontent.com/rajeevbbqq/nest-dockerized/development/test/test_results.png)
 ## Running the app locally for development
 
 ```bash
 # development with watch mode
 $ npm run start:dev
 ```
-![Test results](https://raw.githubusercontent.com/rajeevbbqq/nest-dockerized/development/test/test_results.png)
 
 ## Generating DB scripts
 
