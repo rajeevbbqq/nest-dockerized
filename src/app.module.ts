@@ -3,8 +3,6 @@ import { ConfigModule } from '@nestjs/config';
 import { APP_FILTER } from '@nestjs/core';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { DataSource } from 'typeorm';
-import { AppController } from './app.controller';
-import { AppService } from './app.service';
 import { PostEntity } from './entities/post.entity';
 import { HttpErrorFilter } from './helpers/http-error.filter';
 import { PostModule } from './modules/post/post.module';
@@ -27,9 +25,7 @@ import { AuthModule } from './modules/auth/auth.module';
     PostModule,
     AuthModule,
   ],
-  controllers: [AppController],
   providers: [
-    AppService,
     {
       provide: APP_FILTER,
       useClass: HttpErrorFilter,
